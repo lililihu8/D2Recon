@@ -14,7 +14,6 @@ PyTorch implementation for D2Recon.
 - [Perception](#perception)
 
 ## Installation
-The code is tested with `python=3.7`, `torch==1.12.1+cu102` and `torchvision==0.13.1+cu102` on four RTX 2080 Ti GPUs.
 ```
 git clone --recursive https://github.com/lililihu8/D2Recon.git/
 cd D2Recon/
