@@ -1,0 +1,1 @@
+python train.py -d render --data_path /mnt/hdd_14/Data_for_Dynamo/Output --split render -b 3 -n gt_b_3

@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>D2Recon | Dual-Stage Hybrid Gaussian Splatting</title>
+  <meta
+    name="description"
+    content="D2Recon project page: dual-stage hybrid Gaussian Splatting with diffusion prior for urban scene reconstruction and data synthesis."
+  />
+  <link rel="stylesheet" href="assets/styles.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="container nav">
+      <a class="brand" href="#top" aria-label="D2Recon home">D2Recon</a>
+      <nav class="nav-links" aria-label="Primary navigation">
+        <a href="#overview">Overview</a>
+        <a href="#qualitative">Results</a>
+        <a href="#metrics">Metrics</a>
+        <a href="#simulation">Simulation</a>
+        <a href="#perception">Perception</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <div class="container hero-layout">
+        <p class="eyebrow">Scene Reconstruction And Data Synthesis</p>
+        <h1>D2Recon: Dual-Stage Hybrid Gaussian Splatting with Diffusion Prior for Scene Reconstruction and Data Synthesis</h1>
+        <p class="subtitle">
+          D2Recon reconstructs large-scale urban driving scenes with explicit editable foreground Gaussians,
+          compact neural Gaussian background anchors, and diffusion-restored pseudo-view supervision.
+        </p>
+        <div class="author-line">
+          Chao Li, Wei Wei, Chenpeng Yao, Chengju Liu, Qijun Chen
+        </div>
+        <p class="affiliation">Tongji University</p>
+        <div class="button-row">
+          <a class="button primary" href="https://github.com/lililihu8/D2Recon" target="_blank" rel="noreferrer">Code Repository</a>
+          <a class="button" href="#overview">Method Overview</a>
+          <a class="button" href="#qualitative">Results</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="overview">
+      <div class="container">
+        <div class="section-heading center">
+          <p class="eyebrow">Overview</p>
+          <h2>Dual-stage hybrid Gaussian reconstruction</h2>
+          <p>
+            D2Recon combines editable explicit foreground Gaussians with compact neural background anchors.
+            A stable first-stage reconstruction renders lateral pseudo-views, which are restored offline and
+            reinjected as lower-weight second-stage supervision.
+          </p>
+        </div>
+
+        <figure class="media-card full-figure">
+          <img class="figure-img" src="assets/media/rendered/pipeline.png" alt="D2Recon framework overview" />
+          <figcaption>
+            <strong>Framework overview</strong>
+            <span>Scene graph construction, dual-mode Gaussian representation, pseudo-view rendering, diffusion restoration, and second-stage reinjection.</span>
+          </figcaption>
+        </figure>
+
+        <div class="method-grid compact">
+          <article class="info-card accent-blue">
+            <span class="card-index">01</span>
+            <h3>Editable foreground</h3>
+            <p>Rigid actors, humans, and deformable objects keep explicit 3D Gaussian nodes for object-level control.</p>
+          </article>
+          <article class="info-card accent-green">
+            <span class="card-index">02</span>
+            <h3>Compact background</h3>
+            <p>Static street structure is modeled by neural Gaussian anchors, reducing redundant background primitives.</p>
+          </article>
+          <article class="info-card accent-amber">
+            <span class="card-index">03</span>
+            <h3>Restored pseudo-views</h3>
+            <p>Diffusion-restored extrapolated views improve weakly observed regions while limiting hallucination impact.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section alt" id="qualitative">
+      <div class="container">
+        <div class="section-heading center">
+          <p class="eyebrow">Qualitative Results</p>
+          <h2>Rendering quality on driving-scene benchmarks</h2>
+          <p>
+            Figures are shown as full-width image panels rather than embedded PDFs, so the visual results remain
+            clean, borderless, and easy to inspect.
+          </p>
+        </div>
+
+        <div class="figure-stack">
+          <figure class="media-card full-figure">
+            <img class="figure-img" src="assets/media/rendered/waymo.png" alt="Waymo qualitative comparison" />
+            <figcaption>
+              <strong>Waymo</strong>
+              <span>D2Recon produces sharper object boundaries, more coherent local structures, and fewer blur artifacts in challenging street scenes.</span>
+            </figcaption>
+          </figure>
+
+          <figure class="media-card full-figure slim-figure">
+            <img class="figure-img contain-img" src="assets/media/rendered/kitti-nuscenes.png" alt="KITTI and nuScenes qualitative comparison" />
+            <figcaption>
+              <strong>KITTI and nuScenes</strong>
+              <span>The combined comparison highlights clearer lane markings, sharper texture, and more stable geometry under cross-dataset conditions.</span>
+            </figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="metrics">
+      <div class="container">
+        <div class="section-heading center">
+          <p class="eyebrow">Quantitative Results</p>
+          <h2>Rendering quality, efficiency, and ablation</h2>
+          <p>
+            Numerical results are grouped by question: overall gains, dataset-level rendering quality, and component-level ablation.
+          </p>
+        </div>
+
+        <div class="metric-highlights">
+          <article class="metric-card">
+            <span class="metric-label">Waymo PSNR</span>
+            <strong>32.58</strong>
+            <span class="metric-note">Best in the detailed Waymo comparison</span>
+          </article>
+          <article class="metric-card">
+            <span class="metric-label">KITTI LPIPS</span>
+            <strong>0.04</strong>
+            <span class="metric-note">Lower perceptual error than PVG and OmniRe</span>
+          </article>
+          <article class="metric-card">
+            <span class="metric-label">GPU Memory</span>
+            <strong>14.93 GB</strong>
+            <span class="metric-note">Reduced from OmniRe's 18.19 GB</span>
+          </article>
+        </div>
+
+        <div class="dataset-grid">
+          <article class="table-panel dataset-panel">
+            <h3>Waymo</h3>
+            <table class="compact-table">
+              <thead>
+                <tr>
+                  <th>Method</th>
+                  <th>PSNR</th>
+                  <th>SSIM</th>
+                  <th>LPIPS</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td>StreetGS</td><td>31.96</td><td>0.92</td><td><strong>0.14</strong></td></tr>
+                <tr><td>PVG</td><td>29.42</td><td>0.86</td><td>0.22</td></tr>
+                <tr><td>OmniRe</td><td>31.16</td><td>0.90</td><td>0.18</td></tr>
+                <tr class="highlight-row"><td>D2Recon</td><td><strong>32.58</strong></td><td><strong>0.92</strong></td><td>0.15</td></tr>
+              </tbody>
+            </table>
+          </article>
+
+          <article class="table-panel dataset-panel">
+            <h3>KITTI</h3>
+            <table class="compact-table">
+              <thead>
+                <tr>
+                  <th>Method</th>
+                  <th>PSNR</th>
+                  <th>SSIM</th>
+                  <th>LPIPS</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td>PVG</td><td>26.22</td><td>0.89</td><td>0.06</td></tr>
+                <tr><td>OmniRe</td><td>28.18</td><td>0.91</td><td>0.08</td></tr>
+                <tr class="highlight-row"><td>D2Recon</td><td><strong>29.79</strong></td><td><strong>0.92</strong></td><td><strong>0.04</strong></td></tr>
+              </tbody>
+            </table>
+          </article>
+
+          <article class="table-panel dataset-panel">
+            <h3>nuScenes</h3>
+            <table class="compact-table">
+              <thead>
+                <tr>
+                  <th>Method</th>
+                  <th>PSNR</th>
+                  <th>SSIM</th>
+                  <th>LPIPS</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td>PVG</td><td>28.29</td><td>0.82</td><td>0.25</td></tr>
+                <tr><td>OmniRe</td><td>28.38</td><td><strong>0.85</strong></td><td><strong>0.22</strong></td></tr>
+                <tr class="highlight-row"><td>D2Recon</td><td><strong>28.68</strong></td><td>0.84</td><td>0.23</td></tr>
+              </tbody>
+            </table>
+          </article>
+        </div>
+
+        <div class="table-panel ablation-panel">
+          <h3>Efficiency and Ablation</h3>
+          <table class="compact-table">
+            <thead>
+              <tr>
+                <th>Setting</th>
+                <th>PSNR</th>
+                <th>SSIM</th>
+                <th>LPIPS</th>
+                <th>GPU Memory</th>
+                <th>Time</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>OmniRe 30k</td><td>29.73</td><td>0.88</td><td>0.21</td><td>18.19 GB</td><td>42 min</td></tr>
+              <tr class="highlight-row"><td>D2Recon 30k</td><td><strong>31.76</strong></td><td><strong>0.91</strong></td><td><strong>0.14</strong></td><td><strong>14.93 GB</strong></td><td>41 min</td></tr>
+              <tr><td>w/o Neural Gaussian</td><td>30.24</td><td>0.89</td><td>0.19</td><td>18.33 GB</td><td>44 min</td></tr>
+              <tr><td>w/o Diffusion 20k</td><td>30.84</td><td>0.90</td><td>0.18</td><td>14.62 GB</td><td>31 min</td></tr>
+              <tr><td>w/o Diffusion 30k</td><td>30.86</td><td>0.90</td><td>0.19</td><td>15.06 GB</td><td>42 min</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section class="section alt" id="simulation">
+      <div class="container">
+        <div class="section-heading center">
+          <p class="eyebrow">Simulation And Downstream Validation</p>
+          <h2>Controllable asset insertion and perception-oriented synthesis</h2>
+          <p>
+            Beyond novel-view rendering, D2Recon supports editable scene augmentation and produces synthetic data
+            with useful appearance, geometry, and motion cues for downstream perception training.
+          </p>
+        </div>
+
+        <figure class="media-card full-figure">
+          <img class="figure-img" src="assets/media/rendered/synthetic-data.png" alt="Synthetic data generated after asset insertion" />
+          <figcaption>
+            <strong>Synthetic data generation</strong>
+            <span>Rendered augmented scenes preserve the original driving layout while inserting controllable foreground assets with plausible scale and pose.</span>
+          </figcaption>
+        </figure>
+
+        <div class="paired-grid">
+          <figure class="media-card">
+            <img class="figure-img contain-img" src="assets/media/rendered/asset.png" alt="Asset library for scene augmentation" />
+            <figcaption>
+              <strong>Asset library</strong>
+              <span>Cars, obstacles, humans, and other foreground assets can be inserted into reconstructed scenes.</span>
+            </figcaption>
+          </figure>
+
+          <figure class="media-card">
+            <img class="figure-img contain-img" src="assets/media/rendered/novel-view.png" alt="Asset insertion and novel-view rendering" />
+            <figcaption>
+              <strong>Asset insertion and novel-view rendering</strong>
+              <span>Inserted assets remain coherent across viewpoints with consistent depth ordering and occlusion.</span>
+            </figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="perception">
+      <div class="container">
+        <div class="section-heading center">
+          <p class="eyebrow">Perception Validation</p>
+          <h2>Downstream depth-training signals</h2>
+          <p>
+            The synthesized data provides RGB renderings, motion intensity maps, and disparity maps for
+            self-supervised monocular depth estimation.
+          </p>
+        </div>
+
+        <figure class="media-card full-figure">
+          <img class="figure-img" src="assets/media/rendered/depth.png" alt="Perception-oriented intermediate results" />
+          <figcaption>
+            <strong>Perception-oriented intermediate results</strong>
+            <span>Rendered synthetic frames, motion intensity maps, and disparity maps provide complementary supervision signals.</span>
+          </figcaption>
+        </figure>
+
+        <div class="table-panel downstream">
+          <h3>Dynamo-Depth Validation On Held-Out Real Frames</h3>
+          <table class="compact-table downstream-table">
+            <thead>
+              <tr>
+                <th>Training Data</th>
+                <th>Abs Rel</th>
+                <th>Sq Rel</th>
+                <th>RMSE</th>
+                <th>RMSE log</th>
+                <th>&delta;&lt;1.25</th>
+                <th>&delta;&lt;1.25<sup>2</sup></th>
+                <th>&delta;&lt;1.25<sup>3</sup></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>GT only</td><td>0.127</td><td>1.198</td><td>5.887</td><td>0.183</td><td>0.858</td><td>0.952</td><td>0.985</td></tr>
+              <tr><td>Rendered Data only</td><td>0.139</td><td>1.209</td><td>6.412</td><td>0.202</td><td>0.822</td><td>0.940</td><td>0.982</td></tr>
+              <tr class="highlight-row"><td>Rendered Data + Synthetic Data</td><td><strong>0.125</strong></td><td><strong>1.142</strong></td><td><strong>5.835</strong></td><td><strong>0.181</strong></td><td><strong>0.860</strong></td><td><strong>0.953</strong></td><td><strong>0.985</strong></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-layout">
+      <p>D2Recon project page for high-fidelity urban scene reconstruction and data synthesis.</p>
+      <a href="#top">Back to top</a>
+    </div>
+  </footer>
+</body>
+</html>
