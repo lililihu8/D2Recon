@@ -157,8 +157,11 @@
                 </tr>
               </thead>
               <tbody>
-                <tr><td>StreetGS</td><td>31.96</td><td>0.92</td><td><strong>0.14</strong></td></tr>
+                <tr><td>StreetGS</td><td>31.96</td><td><strong>0.92</strong></td><td><strong>0.14</strong></td></tr>
+                <tr><td>BezierGS</td><td>25.23</td><td>0.84</td><td>0.28</td></tr>
                 <tr><td>PVG</td><td>29.42</td><td>0.86</td><td>0.22</td></tr>
+                <tr><td>3DGS</td><td>27.18</td><td>0.81</td><td>0.27</td></tr>
+                <tr><td>4DGS</td><td>27.91</td><td>0.82</td><td>0.26</td></tr>
                 <tr><td>OmniRe</td><td>31.16</td><td>0.90</td><td>0.18</td></tr>
                 <tr class="highlight-row"><td>D2Recon</td><td><strong>32.58</strong></td><td><strong>0.92</strong></td><td>0.15</td></tr>
               </tbody>
@@ -218,11 +221,14 @@
               </tr>
             </thead>
             <tbody>
-              <tr><td>OmniRe 30k</td><td>29.73</td><td>0.88</td><td>0.21</td><td>18.19 GB</td><td>42 min</td></tr>
-              <tr class="highlight-row"><td>D2Recon 30k</td><td><strong>31.76</strong></td><td><strong>0.91</strong></td><td><strong>0.14</strong></td><td><strong>14.93 GB</strong></td><td>41 min</td></tr>
-              <tr><td>w/o Neural Gaussian</td><td>30.24</td><td>0.89</td><td>0.19</td><td>18.33 GB</td><td>44 min</td></tr>
-              <tr><td>w/o Diffusion 20k</td><td>30.84</td><td>0.90</td><td>0.18</td><td>14.62 GB</td><td>31 min</td></tr>
-              <tr><td>w/o Diffusion 30k</td><td>30.86</td><td>0.90</td><td>0.19</td><td>15.06 GB</td><td>42 min</td></tr>
+              <tr><td>OmniRe 30k</td><td>31.16</td><td>0.90</td><td>0.18</td><td>18.19 GB</td><td>42 min</td></tr>
+              <tr class="highlight-row"><td>D2Recon 30k</td><td><strong>32.58</strong></td><td><strong>0.92</strong></td><td><strong>0.15</strong></td><td><strong>14.93 GB</strong></td><td>41 min</td></tr>
+              <tr><td>w/o hybrid Gaussian 30k</td><td>30.13</td><td>0.82</td><td>0.24</td><td>18.33 GB</td><td>44 min</td></tr>
+              <tr><td>w/o diffusion-restored pseudo-views 30k</td><td>31.86</td><td>0.89</td><td>0.16</td><td>15.06 GB</td><td>39 min</td></tr>
+              <tr><td>w/o diffusion fine-tuning 30k</td><td>32.13</td><td>0.89</td><td>0.16</td><td>14.92 GB</td><td>40 min</td></tr>
+              <tr><td>w/o multi-view consistency loss 30k</td><td>31.92</td><td>0.88</td><td>0.17</td><td>14.89 GB</td><td>40 min</td></tr>
+              <tr><td>w/o reliability mask 30k</td><td>31.76</td><td>0.86</td><td>0.19</td><td>14.88 GB</td><td>40 min</td></tr>
+              <tr><td>w/o progressive injection 30k</td><td>32.04</td><td>0.88</td><td>0.18</td><td>14.91 GB</td><td>40 min</td></tr>
             </tbody>
           </table>
         </div>
@@ -303,9 +309,9 @@
               </tr>
             </thead>
             <tbody>
-              <tr><td>GT only</td><td>0.127</td><td>1.198</td><td>5.887</td><td>0.183</td><td>0.858</td><td>0.952</td><td>0.985</td></tr>
-              <tr><td>Rendered Data only</td><td>0.139</td><td>1.209</td><td>6.412</td><td>0.202</td><td>0.822</td><td>0.940</td><td>0.982</td></tr>
-              <tr class="highlight-row"><td>Rendered Data + Synthetic Data</td><td><strong>0.125</strong></td><td><strong>1.142</strong></td><td><strong>5.835</strong></td><td><strong>0.181</strong></td><td><strong>0.860</strong></td><td><strong>0.953</strong></td><td><strong>0.985</strong></td></tr>
+              <tr><td>Real Images only</td><td>0.127</td><td>1.198</td><td>5.887</td><td>0.183</td><td>0.858</td><td>0.952</td><td>0.985</td></tr>
+              <tr><td>Rendered Images only</td><td>0.139</td><td>1.209</td><td>6.412</td><td>0.202</td><td>0.822</td><td>0.940</td><td>0.982</td></tr>
+              <tr class="highlight-row"><td>Rendered Images + Synthetic Images</td><td><strong>0.125</strong></td><td><strong>1.142</strong></td><td><strong>5.835</strong></td><td><strong>0.181</strong></td><td><strong>0.860</strong></td><td><strong>0.953</strong></td><td><strong>0.985</strong></td></tr>
             </tbody>
           </table>
         </div>
