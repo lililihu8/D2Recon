@@ -1,4 +1,4 @@
-# E2Recon: Dual-Stage Hybrid Gaussian Splatting with Diffusion Prior for Scene Reconstruction and Data Synthesis
+# E2Recon: Efficient and Editable Driving Scene Reconstruction under Limited Viewpoint Supervision
 ### [Project Page](https://lililihu8.github.io/E2Recon/) 
 
 PyTorch implementation for E2Recon.
